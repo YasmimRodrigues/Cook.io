@@ -8,8 +8,9 @@
 
 window.ACCESS_POINT = "https://api.edamam.com/api/recipes/v2";
 const /** {String} */ APP_ID = "f92fd3ac";
-const /** {String} */ API_KEY = "cbf053328b5f7cfd44c7e2587666c119";
+const /** {String} */ API_KEY = "bedb29c0d57bf011581ff55b8fa8bd8e";
 const /** {String} */ TYPE = "public";
+const /** {String} */ USER_ID = "yasmimrbm25";
 
 /**
  * @param {Array} queries Query array
@@ -24,7 +25,11 @@ export const fetchData = async function (queries, successCallback) {
 
     const /** {String} */ url = `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
 
-    const /** {Object} */ response = await fetch(url);
+    const /** {Object} */ response = await fetch(url, {
+        headers: {
+            'Edamam-Account-User': USER_ID
+        }
+    });
 
     if(response.ok) {
         const data = await response.json();
