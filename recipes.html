@@ -142,7 +142,7 @@
 
                 <p class="title-medium">Filters</p>
 
-                <button class="close-btn has-state" aria-label="Close filter bar" data-filter-toggler>
+                <button class="icon-btn close-btn has-state" aria-label="Close filter bar" data-filter-toggler>
                     <span class="material-symbols-outlined" aria-hidden="true">close</span>
                 </button>
 
@@ -887,6 +887,34 @@
 
         </div>
 
+        <div class="overlay" data-overlay data-filter-toggler></div>
+
+        <div class="recipe-container container">
+
+            <div class="title-wrapper">
+
+                <h2 class="headline-small">All Recipes</h2>
+
+                <button class="btn btn-secondary btn-filter has-icon has-state" aria-label="Open filter bar" data-filter-toggler data-filter-btn>
+
+                    <span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
+
+                    <div class="wrapper">
+                        <span class="label-large">Filters</span>
+
+                        <div class="badge label-small" data-filter-count>9</div>
+                    </div>
+                </button>
+
+            </div>
+
+            <div class="grid-list" data-grid-list></div>
+
+            <div class="load-more grid-list" data-load-more>
+                <p class="body-medium info-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, ipsum?</p>
+            </div>
+        </div>
+
        </article>
     </main> 
     
@@ -909,8 +937,5 @@
         </a>
     </footer>
 
-    <div class="snackbar-container">
-        <div class="snackbar"></div>
-    </div>
 </body>
 </html>
