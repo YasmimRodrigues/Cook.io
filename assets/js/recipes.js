@@ -80,3 +80,42 @@ $filterSubmit.addEventListener("click", function() {
     window.location = queries.length ? `?${queries.join("&").replace(/,/g,"=")}` : "/recipes.html";
 
 });
+
+$filterSearch.addEventListener("keydown", e => {
+    if(e.key === "Enter") $filterSubmit.click();
+});
+
+$filterClear.addEventListener("click", function() {
+
+    const /** {NodeElement} */ $filterCheckboxes = $filterBar.querySelectorAll("input:checked");
+
+    $filterCheckboxes?.forEach(elem => elem.checked = false);
+    $filterSearch.value &&= "";
+
+});
+
+const /** {String} */ queryStr = window.location.search.slice(1);
+const /** {Array} */ queries = queryStr && queryStr.split("&").map(i => i.split("="));
+
+const /** {NodeElement} */ $filterCount = document.querySelector("[data-filter-count]");
+
+if(queries.length) {
+    $filterCount.style.display = "block";
+    $filterCount.innerHTML = queries.length;
+} else {
+    $filterCount.style.display = "none";
+}
+
+queryStr && queryStr.split("&").map(i => {
+    if(i.split("=")[0] === "q") {
+        $filterBar.querySelector("input[type='search']").value = i.split("=")[i].replace(/%20/g, " ");
+    }else {
+        $filterBar.querySelector(`[value="${i.split("=")[1].replace(/%20/g, " ")}"]`).checked = true;
+    }
+});
+
+const /** {NodeElement} */ $filterBtn = document.querySelector("[data-filter-btn]");
+
+window.addEventListener("scroll", e => {
+    $filterBtn.classList[window.scrollY >= 120 ? "add" : "remove"]("active");
+})
