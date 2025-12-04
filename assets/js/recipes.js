@@ -210,4 +210,32 @@ fetchData(queries || defaultQueries, data => {
     }else {
         $loadMore.innerHTML = `<p class="body-medium info-text">No recipe found</p>`;
     }
+
 }); 
+
+const /** {Number} */ CONTAINER_MAX_WIDTH = 1200;
+const /** {Number} */ CONTAINER_MAX_CARD = 6;
+
+window.addEventListener("scroll", async e => {
+
+    if($loadMore.getBoundingClientRect().top < window.innerHeight && !requestedBefore && nextPageUrl) {
+
+        $loadMore.innerHTML = $skeletonCard.repeat(Math.round(($loadMore.clientWidth / (CONTAINER_MAX_WIDTH)) * CONTAINER_MAX_CARD));
+        requestedBefore = true;
+        
+        fetchData([], data => { 
+
+            const { _links: { next } } = data;
+            nextPageUrl = next?.href;
+
+            renderRecipe(data);
+            $loadMore.innerHTML = "";
+            requestedBefore = false;
+        
+        }, nextPageUrl);
+    
+    }
+
+    if(!nextPageUrl) $loadMore.innerHTML = `<p class="body-medium info-text">No more recipes</p>`;
+    
+});
