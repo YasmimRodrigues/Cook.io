@@ -17,15 +17,15 @@ const /** {String} */ USER_ID = "yasmimrbm25";
  * @param {Function} successCallback Success callback function
  */
 
-export const fetchData = async function (queries, successCallback) {
+export const fetchData = async function (queries = [], successCallback, url = null) {
     const /** {String} */ query = queries?.join("&")
     .replace(/,/g, "=")
     .replace(/ /g, "%20")
     .replace(/\+/g, "%2B");
 
-    const /** {String} */ url = `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
+    const /** {String} */ finalUrl = url ? url : `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
 
-    const /** {Object} */ response = await fetch(url, {
+    const /** {Object} */ response = await fetch(finalUrl, {
         headers: {
             'Edamam-Account-User': USER_ID
         }
