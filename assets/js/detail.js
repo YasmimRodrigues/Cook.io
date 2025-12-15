@@ -23,8 +23,6 @@ const /** {String} */ recipeId = window.location.search.slice(window.location.se
 const /** {String} */ detailUrl = `${ACCESS_POINT}/${recipeId}`;
 
 fetchData(null, data => {
-
-    console.log(data);
     
     // Guard Clause
     
