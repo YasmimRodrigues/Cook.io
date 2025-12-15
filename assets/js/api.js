@@ -18,12 +18,27 @@ const /** {String} */ USER_ID = "yasmimrbm25";
  */
 
 export const fetchData = async function (queries = [], successCallback, url = null) {
+
+    if (url) { 
+        const /** {Object} */ response = await fetch(url, {
+             headers: {
+                 'Edamam-Account-User': USER_ID
+             }
+         });
+         
+        if(response.ok) {
+            const data = await response.json();
+            successCallback(data);
+        }
+        return; 
+    }
+
     const /** {String} */ query = queries?.join("&")
     .replace(/,/g, "=")
     .replace(/ /g, "%20")
     .replace(/\+/g, "%2B");
 
-    const /** {String} */ finalUrl = url ? `${url}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}` : `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
+    const /** {String} */ finalUrl = `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
 
     const /** {Object} */ response = await fetch(finalUrl, {
         headers: {
