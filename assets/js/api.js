@@ -19,35 +19,37 @@ const /** {String} */ USER_ID = "yasmimrbm25";
 
 export const fetchData = async function (queries = [], successCallback, url = null) {
 
-    if (url) { 
-        const /** {Object} */ response = await fetch(url, {
-             headers: {
-                 'Edamam-Account-User': USER_ID
-             }
-         });
+    let finalUrl = "";
+
+    if (url) {
+
+        finalUrl = url.includes("app_id") ? url : `${url}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}`;
          
+    } else {
+        const query = queries?.join("&")
+        .replace(/,/g, "=")
+        .replace(/ /g, "%20")
+        .replace(/\+/g, "%2B");
+
+        finalUrl = `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
+    }
+
+    try {
+        const response = await fetch(finalUrl, {
+            headers: {
+                'Edamam-Account-User': USER_ID
+            }
+        });
+
         if(response.ok) {
             const data = await response.json();
             successCallback(data);
+        }else {
+            const errorText = await response.text();
+            console.error("Erro na API:", errorText);
         }
-        return; 
-    }
 
-    const /** {String} */ query = queries?.join("&")
-    .replace(/,/g, "=")
-    .replace(/ /g, "%20")
-    .replace(/\+/g, "%2B");
-
-    const /** {String} */ finalUrl = `${ACCESS_POINT}?app_id=${APP_ID}&app_key=${API_KEY}&type=${TYPE}${query ? `&${query}` : ""}`;
-
-    const /** {Object} */ response = await fetch(finalUrl, {
-        headers: {
-            'Edamam-Account-User': USER_ID
-        }
-    });
-
-    if(response.ok) {
-        const data = await response.json();
-        successCallback(data);
+    } catch (err) {
+        console.error("Erro de rede:", err);
     }
 }
