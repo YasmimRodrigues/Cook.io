@@ -107,11 +107,26 @@ if(queries.length) {
 }
 
 queryStr && queryStr.split("&").map(i => {
-    if(i.split("=")[0] === "q") {
-        $filterBar.querySelector("input[type='search']").value = i.split("=")[1].replace(/%20/g, " ");
+
+    const [key, value] = i.split("=");
+
+    const decodedValue = decodeURIComponent(value);
+
+    if(key === "q") {
+        const $searchField = $filterBar.querySelector("input[type='search']");
+        if($searchField) $searchField.value = decodedValue;
     }else {
-        $filterBar.querySelector(`[value="${i.split("=")[1].replace(/%20/g, " ")}"]`).checked = true;
+        const $checkbox = $filterBar.querySelector(`[value="${decodedValue}"]`);
+
+        if($checkbox) {
+            $checkbox.checked = true;
+        }else {
+            const fallbackValue = decodedValue.replace(/ /g, "-");
+            const $checkboxFallback = $filterBar.querySelector(`[value="${fallbackValue}"]`);
+            if ($checkboxFallback) $checkboxFallback.checked = true; 
+        }
     }
+
 });
 
 const /** {NodeElement} */ $filterBtn = document.querySelector("[data-filter-btn]");
