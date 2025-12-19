@@ -16,4 +16,72 @@ const /** {Array} */ savedRecipes = Object.keys(window.localStorage).filter(item
     return item.startsWith("cookio-recipe");
 });
 
-console.log(savedRecipes);
+const /** {NodeElement} */ $savedRecipeContainer = document.querySelector("[data-saved-recipe-container]");
+
+$savedRecipeContainer.innerHTML = `<h2 class="headline-small section-title">All Saved Recipes</h2>`;
+const /** {NodeElement} */ $gridList = document.createElement("div");
+$gridList.classList.add("grid-list");
+
+if(savedRecipes.length) {
+    savedRecipes.map((savedRecipe, index) => {
+
+       const savedData = JSON.parse(window.localStorage.getItem(savedRecipe));
+
+       if (!savedData || !savedData.recipe) return;
+
+        const {
+            recipe: {
+                image, 
+                images,
+                label: title,
+                totalTime: cookingTime,
+                uri
+            }
+        } = savedData;
+
+        const /** {String} */ recipeId = uri.slice(uri.lastIndexOf("_") + 1);
+        const /** {undefined || String} */ isSaved = window.localStorage.getItem(`cookio-recipe${recipeId}`);
+
+        const bannerUrl = image || (images && (images.REGULAR?.url || images.SMALL?.url)) || "./assets/images/image-placeholder.svg"
+
+        const /** {NodeElement} */ $card = document.createElement("div");
+        $card.classList.add("card");
+        $card.style.animationDelay = `${100 * index}ms`;
+
+        $card.innerHTML = `
+            <figure class="card-media img-holder">
+                <img src="${bannerUrl}" width="195" height="195" loading="lazy" alt="${title}" class="img-cover" onerror="this.onerror=null;this.src='./assets/images/image-placeholder.svg';">
+            </figure>
+
+            <div class="card-body">
+
+                <h3 class="title-small">
+                    <a href="./detail.html?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
+                </h3>
+
+                <div class="meta-wrapper">
+
+                    <div class="meta-item">
+                        <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+
+                        <span class="label-medium">${getTime(cookingTime).time || "<1"} ${getTime(cookingTime).timeUnit}</span>
+                    </div>
+
+                    <button class="icon-btn has-state ${isSaved ? "saved" : "removed"}" aria-label="Add to saved recipes" onclick="saveRecipe(this, '${recipeId}')">
+                        <span class="material-symbols-outlined bookmark-add" aria-hidden="true">bookmark_add</span>
+                        
+                        <span class="material-symbols-outlined bookmark" aria-hidden="true">bookmark</span>
+
+                    </button>
+                </div>
+            </div>
+        `;
+
+        $gridList.appendChild($card);
+
+    });
+}else {
+    $savedRecipeContainer.innerHTML += `<p class="body-large">You don't saved any recipes yet!</p>`;
+}
+
+$savedRecipeContainer.appendChild($gridList);
