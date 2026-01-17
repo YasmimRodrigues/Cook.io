@@ -7,10 +7,10 @@
 "use strict";
 
 window.ACCESS_POINT = "https://api.edamam.com/api/recipes/v2";
-const /** {String} */ APP_ID = "f92fd3ac";
-const /** {String} */ API_KEY = "bedb29c0d57bf011581ff55b8fa8bd8e";
-const /** {String} */ TYPE = "public";
-const /** {String} */ USER_ID = "yasmimrbm25";
+const APP_ID = import.meta.env.VITE_EDAMAM_APP_ID;
+const API_KEY = import.meta.env.VITE_EDAMAM_API_KEY;
+const TYPE = import.meta.env.VITE_EDAMAM_TYPE;
+const USER_ID = import.meta.env.VITE_EDAMAM_USER_ID;
 
 /**
  * @param {Array} queries Query array
@@ -46,10 +46,10 @@ export const fetchData = async function (queries = [], successCallback, url = nu
             successCallback(data);
         }else {
             const errorText = await response.text();
-            console.error("Erro na API:", errorText);
+            console.error("API Error:", errorText);
         }
 
     } catch (err) {
-        console.error("Erro de rede:", err);
+        console.error("Network Error:", err);
     }
 }
