@@ -22,7 +22,7 @@ const /** {NodeElement} */ $searchField = document.querySelector("[data-search-f
 const /** {NodeElement} */ $searchBtn = document.querySelector("[data-search-btn");
 
 $searchBtn.addEventListener("click", function () {
-    if($searchField.value) window.location = `/recipes.html?q=${$searchField.value}`;
+    if($searchField.value) window.location = `/recipes?q=${$searchField.value}`;
 });
 
 /**
@@ -127,7 +127,7 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
                 <div class="card-body">
 
                     <h3 class="title-small">
-                        <a href="./detail.html?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
+                        <a href="./detail?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
                     </h3>
 
                     <div class="meta-wrapper">
@@ -154,7 +154,7 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
         $currentTabPanel.appendChild($gridList);
 
         $currentTabPanel.innerHTML += `
-            <a href="./recipes.html?mealType=${$currentTabBtn.textContent.trim().toLowerCase()}" class="btn btn-secondary label-large has-state">Show more</a>
+            <a href="./recipes?mealType=${$currentTabBtn.textContent.trim().toLowerCase()}" class="btn btn-secondary label-large has-state">Show more</a>
         `;
     });
 }
@@ -217,7 +217,7 @@ for(const [index, $sliderSection] of $sliderSections.entries()) {
                     <div class="card-body">
 
                         <h3 class="title-small">
-                            <a href="./detail.html?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
+                            <a href="./detail?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
                         </h3>
 
                         <div class="meta-wrapper">
@@ -247,7 +247,7 @@ for(const [index, $sliderSection] of $sliderSections.entries()) {
 
         $sliderWrapper.innerHTML += `
             <li class="slider-item" data-slider-item>
-                <a href="./recipes.html?cuisineType=${cuisineType[index].toLowerCase()}" class="load-more-card has-state">
+                <a href="./recipes?cuisineType=${cuisineType[index].toLowerCase()}" class="load-more-card has-state">
                     <span class="label-large">Show more</span>
 
                     <span class="material-symbols-outlined" aria-hidden="true">navigate_next</span>
