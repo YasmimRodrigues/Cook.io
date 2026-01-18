@@ -42,7 +42,7 @@ if(savedRecipes.length) {
         const /** {String} */ recipeId = uri.slice(uri.lastIndexOf("_") + 1);
         const /** {undefined || String} */ isSaved = window.localStorage.getItem(`cookio-recipe${recipeId}`);
 
-        const bannerUrl = image || (images && (images.REGULAR?.url || images.SMALL?.url)) || "./assets/images/image-placeholder.svg"
+        const bannerUrl = image || (images && (images.REGULAR?.url || images.SMALL?.url)) || "/assets/images/image-placeholder.svg"
 
         const /** {NodeElement} */ $card = document.createElement("div");
         $card.classList.add("card");
@@ -50,13 +50,13 @@ if(savedRecipes.length) {
 
         $card.innerHTML = `
             <figure class="card-media img-holder">
-                <img src="${bannerUrl}" width="195" height="195" loading="lazy" alt="${title}" class="img-cover" onerror="this.onerror=null;this.src='./assets/images/image-placeholder.svg';">
+                <img src="${bannerUrl}" width="195" height="195" loading="lazy" alt="${title}" class="img-cover" onerror="this.onerror=null;this.src='/assets/images/image-placeholder.svg';">
             </figure>
 
             <div class="card-body">
 
                 <h3 class="title-small">
-                    <a href="./detail?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
+                    <a href="/detail?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
                 </h3>
 
                 <div class="meta-wrapper">

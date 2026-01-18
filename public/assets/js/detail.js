@@ -72,7 +72,7 @@ fetchData(null, data => {
         }
 
         tagElements += `
-            <a href="./recipes?${type}=${tag.toLowerCase()}" class="filter-chip label-large has-state">${tag}</a>
+            <a href="/recipes?${type}=${tag.toLowerCase()}" class="filter-chip label-large has-state">${tag}</a>
         `;
 
     });

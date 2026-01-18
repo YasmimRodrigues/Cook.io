@@ -181,7 +181,7 @@ const renderRecipe = data => {
             <div class="card-body">
 
                 <h3 class="title-small">
-                    <a href="./detail?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
+                    <a href="/detail?recipe=${recipeId}" class="card-link">${title ?? "Untitled"}</a>
                 </h3>
 
                 <div class="meta-wrapper">
