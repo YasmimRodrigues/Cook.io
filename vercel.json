@@ -1,7 +1,3 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/recipes", "destination": "/recipes.html" },
-    { "source": "/saved-recipes", "destination": "/saved-recipes.html" }
-  ]
+  "cleanUrls": true
 }
