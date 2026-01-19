@@ -21,8 +21,8 @@ Cook.io is a comprehensive web platform for recipe discovery, designed to be fas
 | **JavaScript (ES6+)** | Modular logic, DOM manipulation, and state management. |
 | **HTML5 & CSS3** | Semantic structure and advanced styling with CSS Variables. |
 | **Edamam API** | Real-time data source for recipes and nutritional info. |
-| **Material Symbols** | Modern system icons provided by Google. |
-| **Google Fonts** | Premium typography (DM Sans & DM Serif Display). |
+| **Vite** | Modern build tool for fast development and optimized production bundling. |
+| **Vercel** | Cloud platform for static site hosting and continuous deployment. |
 
 ---
 
@@ -46,6 +46,38 @@ The directory is organized into a clean, modular architecture:
   ├── index.html                 # Main Entry Point
   ├── recipes.html               # Search Results and Filters Page
   ├── detail.html                # Single Recipe Detail View
-  └── saved-recipes.html         # User's Personal Recipe Gallery
+  ├── saved-recipes.html         # User's Personal Recipe Gallery
+  ├── vite.config.js             # Multi-page build configuration
+  └── vercel.json                # Deployment and routing rules
 
 ```
+
+---
+
+## 🔧 Installation & Setup
+  1. **Clone the repository:**
+
+  ```bash
+    git clone https://github.com/YasmimRodrigues/cook-io.git
+  ```
+  2. **Install dependencies:**
+
+  ```bash
+    npm install
+  ```
+  3. **Run in development mode:**
+
+  ```bash
+    npm run dev
+  ```
+  4. **Build for production:**
+
+  ```bash
+    npm run build
+  ```
+
+---
+
+## 🌐 Deployment
+This project is configured for Vercel using Clean URLs. Thanks to the vite.config.js and vercel.json configurations, you can navigate between pages without the .html extension in the URL (e.g., /recipes instead of /recipes.html).
+  
