@@ -1,4 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "rewrites": [
+    { "source": "/recipes", "destination": "/recipes.html" },
+    { "source": "/saved-recipes", "destination": "/saved-recipes.html" }
+  ]
 }
